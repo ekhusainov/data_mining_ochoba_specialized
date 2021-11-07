@@ -4,8 +4,6 @@ from argparse import (
 )
 import logging
 import logging.config
-import os.path
-from typing import DefaultDict
 
 import yaml
 
