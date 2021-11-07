@@ -30,7 +30,7 @@ python src/data_mining.py download -s vc -c comments -f 1 -n 100
 python src/data_mining.py download -s tj -c posts -f 1 -n 100
 ```
 
-Скачиваем посты с TJOURNAL.RU с 1 по 101 (1 + 100).
+Скачиваем комменты с TJOURNAL.RU с 1 по 101 (1 + 100).
 
 ```
 python src/data_mining.py download -s tj -c comments -f 1 -n 100
@@ -42,7 +42,7 @@ python src/data_mining.py download -s tj -c comments -f 1 -n 100
 python src/data_mining.py download -s dtf -c posts -f 1 -n 100
 ```
 
-Скачиваем посты с DTF.RU с 1 по 101 (1 + 100).
+Скачиваем комменты с DTF.RU с 1 по 101 (1 + 100).
 
 ```
 python src/data_mining.py download -s dtf -c comments -f 1 -n 100
