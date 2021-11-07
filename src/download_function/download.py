@@ -61,11 +61,13 @@ def requests_content(begin_url, end_url, first_number, number_pages):
                 break
             except (requests.exceptions.Timeout,
                     requests.exceptions.RequestException,
-                    requests.exceptions.ConnectionError):
+                    requests.exceptions.ConnectionError,
+                    ConnectionError):
                 sleep(60)
         number_with_nulls = add_nulls(i)
         while WRONG_TEXT in request_html:
-            logger.warning("%s: soft_ban", repr(number_with_nulls))
+            percent_done = round((i - first_number) / number_pages * 100, 2)
+            logger.warning("%s: soft_ban, %s%% done", repr(number_with_nulls), repr(percent_done))
             sleep(60)
             request_html = requests.get(current_url).text
         output_file = output_dir + "/" + number_with_nulls
