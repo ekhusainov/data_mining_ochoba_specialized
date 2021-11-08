@@ -29,7 +29,8 @@ def callback_download(arguments):
         logger.error("Enter site name and type content.")
     else:
         download(arguments.site_name, arguments.type_content,
-                 arguments.first_number, arguments.number_pages)
+                 arguments.first_number, arguments.number_pages,
+                 arguments.json_dump)
 
 
 def setup_parser(parser):
@@ -65,6 +66,13 @@ def setup_parser(parser):
         help="Number of posts.",
         default=500,
         type=int,
+    )
+    download.add_argument(
+        "-j", "--json_dump",
+        dest="json_dump",
+        help="Are we saving objects using JSON dumps or not?",
+        default="no",
+        type=str,
     )
     download.set_defaults(callback=callback_download)
 

@@ -2,6 +2,7 @@ import logging
 import logging.config
 import requests
 from time import sleep
+from json import dumps
 
 import yaml
 
@@ -34,7 +35,8 @@ def add_nulls(number, numcount=10):
     return "0" * (numcount - len_number) + str(number)
 
 
-def requests_content(begin_url, end_url, first_number, number_pages):
+def requests_content(begin_url, end_url, first_number,
+                     number_pages, is_need_json_dump):
 
     if begin_url == "https://api.vc.ru/v1.9/entry/" and end_url == "":
         output_dir = "vc_ru_posts"
@@ -67,20 +69,24 @@ def requests_content(begin_url, end_url, first_number, number_pages):
         number_with_nulls = add_nulls(i)
         while WRONG_TEXT in request_html:
             percent_done = round((i - first_number) / number_pages * 100, 2)
-            logger.warning("%s: soft_ban, %s%% done", repr(number_with_nulls), repr(percent_done))
+            logger.warning("%s: soft_ban, %s%% done", repr(
+                number_with_nulls), repr(percent_done))
             sleep(60)
             request_html = requests.get(current_url).text
         output_file = output_dir + "/" + number_with_nulls
         if NO_ACCESS in repr(request_html) or NO_URL in repr(request_html) or EMPTY in repr(request_html):
             continue
         with open(output_file, "w", encoding="utf-8") as file:
-            file.write(request_html)
+            if is_need_json_dump == "no":
+                file.write(request_html)
+            else:
+                file.write(dumps(request_html))
 
     logger.info("Finish download from %s to %s", repr(
         first_number), repr(first_number + number_pages))
 
 
-def download(site_name, content, first_number, number_pages):
+def download(site_name, content, first_number, number_pages, is_need_json_dump):
     setup_logging()
     logger.info("Start download.")
 
@@ -115,4 +121,5 @@ def download(site_name, content, first_number, number_pages):
         logger.info("Start download from %s to %s", repr(
             first_number), repr(first_number + number_pages))
         requests_content(current_begin_url, current_end_url,
-                         first_number, number_pages)
+                         first_number, number_pages,
+                         is_need_json_dump)
