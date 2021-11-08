@@ -47,3 +47,9 @@ python src/data_mining.py download -s dtf -c posts -f 1 -n 100
 ```
 python src/data_mining.py download -s dtf -c comments -f 1 -n 100
 ```
+
+-j yes — запаковывает скаченное в json.dumps. По умолчанию это не делает.
+
+```
+python src/data_mining.py download -s vc -c posts -f 1 -n 100 -j yes
+```
