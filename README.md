@@ -12,6 +12,7 @@ conda activate $environment_name
 pip install -e .
 ```
 
+Обратите на версию питона. При необходимости замените python на python3.  
 Скачиваем посты с VC.RU с 1 по 101 (1 + 100).
 
 ```
